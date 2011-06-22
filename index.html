@@ -59,7 +59,12 @@ function process() {
 	rightText = document.getElementById("rightBox").value; 
 
 	for(var i in lines) {
-		edgedText += leftText + lines[i] + rightText + "\n";
+		edgedText += leftText + lines[i] + rightText;
+
+		/* Check if its the last line, if not, do linebreak */
+		if (i != lines.length-1) {
+			edgedText += "\n";
+		}
 	}
 	document.getElementById("content").value = edgedText;
 	document.getElementById("content").select();
