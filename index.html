@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script type="text/javascript">
+/* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+/* ]]> */
+</script>
+<script class="jsbin" src="jquery-1.6.1.min.js"></script>
+<meta charset=utf-8 />
+<link href='http://fonts.googleapis.com/css?family=Terminal+Dosis+Light' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" media="screen" href="style.css">
+<title>Edge it!</title>
+<script type="text/javascript">
+
+/* Replaces the Previewtext with the first line of thecontentbox */
+function replacePreview(what) {
+	lines = $('#content').val().split(/\n/);
+	
+	/* Check if line is empty and write default text if yes */
+	if (lines[0] == "") {
+	lines[0] = "paste lines here";
+	}
+	
+	document.getElementById("previewDiv").innerHTML = lines[0];
+}
+
+/* Adds the text from the right box to the preview */
+function addTextAfter(what){
+        if (document.createTextNode){
+	        var mytext=document.createTextNode(what)
+        	document.getElementById("rightDiv").innerHTML = "";
+	        document.getElementById("rightDiv").appendChild(mytext)
+	}
+}
+
+/* Adds the text from the left box to the preview */
+function addTextBevor(what) {
+        if (document.createTextNode) {
+	        var text=document.createTextNode(what)
+        	document.getElementById("leftDiv").innerHTML = "";
+	        document.getElementById("leftDiv").appendChild(text)
+        }
+}
+
+/* Edges the content of the contentbox with the content of left/right box and writes back to contentbox */
+function process() {
+	entered = $('#content').val();
+	lines = entered.split(/\n/);
+	edgedText = "";
+	leftText = document.getElementById("leftBox").value;
+	rightText = document.getElementById("rightBox").value; 
+
+	for(var i in lines) {
+		edgedText += leftText + lines[i] + rightText + "\n";
+	}
+	document.getElementById("content").value = edgedText;
+	document.getElementById("content").select();
+}
+
+/* Deletes the content of all boxes and preview divs */
+function reset() {
+	document.getElementById("previewDiv").innerHTML = "paste lines here";
+	document.getElementById("leftDiv").innerHTML = "";
+	document.getElementById("rightDiv").innerHTML = "";
+	document.getElementById("leftBox").value = "";
+	document.getElementById("rightBox").value = "";
+	document.getElementById("content").value = "";
+}
+
+/* Posts Howto in Contentbox! */
+function postHowTo() {
+reset();
+document.getElementById("content").value = "1. Post your lines to edge in this box\n2. Write the left edge in the left box\n3. Write the right edge in the right box\n4. Check if everything is correct in the preview overhead\n5. Press the Edge It! button\n6. osx press cmd+c, win/linux press strg+c\n7. Paste where you need it. Done!\n\nPress the Reset It button to clear this!";
+}
+ 
+/* Bind EdgeIt-button click to process function */
+$(document).ready(function() { 
+    $("#edgeit").bind('click', process);
+});
+
+/* Bind ResetIt-button click to reset function */
+$(document).ready(function() { 
+    $("#resetit").bind('click', reset);
+});
+
+/* Bind HowTo-button click to the post how to function */
+$(document).ready(function() { 
+    $("#howto").bind('click', postHowTo);
+});
+</script>
+</head>
+<body>
+<center>
+<table id="NoIWontUseDivs" border="0">
+<tr>
+	<td colspan="3" id="preview">
+		<div id="leftDiv"></div>
+		<div id="previewDiv">paste lines here</div>
+		<div id="rightDiv"></div>
+	</td>
+</tr>
+<tr>
+	<td id="moveToZeTop"><input type="text" name="leftBox" onkeyup="addTextBevor(this.value)" id="leftBox">
+	<br />left edge here</td>
+	<td id="moveToZeTop"><textarea id="content" cols="60" rows="30" onkeyup="replacePreview(this.value)"></textarea><br />
+		<button id="resetit">Reset It!</button><button id="howto">Howto?</button><button id="edgeit">Edge It!</button></td>
+	<td id="moveToZeTop"><input type="text" name="rightBox" onkeyup="addTextAfter(this.value)" id="rightBox">
+	<br /><span style="float:right">right edge here</span></td>
+</tr>
+</table>
+<div id="footer">Open Source? <a href="https://github.com/philphilphil/edgeIt">yep</a>.  Twitter? <a href="http://twitter.com/phibam">yep</a>. Worry about your data? nope, all js.</div>
+<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://www.edgeitfor.me"></a>
+<noscript><a href="http://flattr.com/thing/318389/Edge-It" target="_blank">
+<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
